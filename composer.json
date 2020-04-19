@@ -51,7 +51,8 @@
         "armincms/wizard": "~0.1",
         "armincms/many-to-many": "~0.1", 
         "armincms/toolbar-action": "~0.1",
-        "zareismail/nova-policy": "~0.1" 
+        "armincms/template": "~0.1",
+        "zareismail/nova-policy": "~0.1"  
     },
     "autoload": {
         "psr-4": {
