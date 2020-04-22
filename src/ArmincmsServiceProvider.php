@@ -33,28 +33,53 @@ class ArmincmsServiceProvider extends ServiceProvider
         $this->loadJsonTranslationsFrom(__DIR__.'/../resources/lang');
         $this->mergeConfigurations();
 
+        LaravelNova::serving([$this, 'servingNova']);
+        \Gate::policy(\Core\User\Models\Admin::class, Policies\AdminPolicy::class);
+
         $this->app->booted(function () {
-            // $this->routes(); 
- 
+            // $this->routes();  
             $this->registerArmincmsStorages(); 
-        });
 
-        LaravelNova::serving(function (ServingNova $event) {
-            LaravelNova::resources([
-                Nova\General::class,
-                Nova\Admin::class,
-                Nova\User::class,
-                Nova\Role::class,
-            ]);
-        }); 
-
-        $this->app->booted(function() { 
             LaravelNova::serving(function (ServingNova $event) {
                 LaravelNova::script(
                     "nova-gutenberg-jquery", __DIR__.'/../resources/js/jquery-1.4.min.js'
                 );
             }); 
-        });
+        });     
+    }
+
+    public function servingNova()
+    {
+        LaravelNova::resources([
+            Nova\General::class,
+            Nova\Admin::class,
+            Nova\User::class,
+            Nova\Role::class,
+        ]);
+    }
+
+    /**
+     * Register the tool's routes.
+     *
+     * @return void
+     */
+    protected function routes()
+    {
+        if ($this->app->routesAreCached()) {
+            return;
+        }
+
+        Route::middleware(['nova', Authorize::class])
+                ->prefix('nova-vendor/armincms')
+                ->group(__DIR__.'/../routes/api.php');
+    }
+
+    public function mergeConfigurations()
+    {  
+        Collection::make(File::files(__DIR__.'/../config'))->each(function($file) { 
+            $this->mergeConfigFrom($file->getPathname(), File::name($file));
+        }); 
+
 
         collect([
             'user' => \Core\User\Models\User::class, 
@@ -78,33 +103,6 @@ class ArmincmsServiceProvider extends ServiceProvider
         }); 
    
         Config::set('laraberg.use_package_routes', false);  
-
-        \Gate::policy(\Core\User\Models\Admin::class, Policies\AdminPolicy::class);   
-    }
-
-    /**
-     * Register the tool's routes.
-     *
-     * @return void
-     */
-    protected function routes()
-    {
-        if ($this->app->routesAreCached()) {
-            return;
-        }
-
-        Route::middleware(['nova', Authorize::class])
-                ->prefix('nova-vendor/armincms')
-                ->group(__DIR__.'/../routes/api.php');
-    }
-
-    public function mergeConfigurations()
-    {  
-        Collection::make(File::files(__DIR__.'/../config'))->each(function($file) { 
-            $this->app['config']->set(
-                File::name($file), require $file->getPathname() 
-            );
-        });  
     }
 
     /**
@@ -116,18 +114,7 @@ class ArmincmsServiceProvider extends ServiceProvider
     {  
         $this->commands([
             Console\UploadLinkCommand::class
-        ]);
-
-        // $this->app->booting(function() { 
-        //     collect(config('database.connections'))->keys()->each(function($connection) {   
-        //         $this->app['config']->set(
-        //             "database.connections.{$connection}.prefix", env('DB_PREFIX')
-        //         );
-        //     });  
-        // });
-
-        $this->app->resolving('config', function($factory) { 
-        });
+        ]);  
 
         // should remove after migration to nova
         $this->mergeConfigFrom(
