@@ -77,7 +77,11 @@ class ArmincmsServiceProvider extends ServiceProvider
     public function mergeConfigurations()
     {  
         Collection::make(File::files(__DIR__.'/../config'))->each(function($file) { 
-            $this->mergeConfigFrom($file->getPathname(), File::name($file));
+            $name = File::name($file);
+
+            $this->app['config']->set($name, array_merge(
+                $this->app['config']->get($name, []), require $file->getPathname()
+            ));
         }); 
 
 
