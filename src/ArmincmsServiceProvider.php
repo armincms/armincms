@@ -142,7 +142,7 @@ class ArmincmsServiceProvider extends ServiceProvider
             $public = config("filesystems.disks.public");
             $public['root'] = storage_path("app/upload/{$path}");
             $public['url']  = url("/upload/{$path}"); 
-            $public['visibility']  = 'private'; 
+            $public['visibility']  = 'public'; 
 
             Config::set("filesystems.disks.armin.{$name}", $public);  
         }); 
