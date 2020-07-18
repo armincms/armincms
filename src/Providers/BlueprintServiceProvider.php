@@ -35,10 +35,10 @@ class BlueprintServiceProvider extends ServiceProvider implements DeferrableProv
 
          // Price blueprint
         Blueprint::macro('discount', function() {
-            $this->json('discount')->default(json_encode([
+            $this->json('discount')->nullable()/*default(json_encode([
                 'type'  => 'amount', 
                 'value' => 0
-            ])); 
+            ]))*/; 
         });
 
         Blueprint::macro('dropDiscount', function() {
@@ -93,10 +93,10 @@ class BlueprintServiceProvider extends ServiceProvider implements DeferrableProv
 
         // Duration blueprint
         Blueprint::macro('duration', function() {
-            $this->json("duration")->default(json_encode([
+            $this->json("duration")->nullable()/*->default(json_encode([
                 "period" => "day",
                 "count"  => 1
-            ]));
+            ]))*/;
         });
 
         Blueprint::macro('dropDuration', function() {
@@ -139,12 +139,12 @@ class BlueprintServiceProvider extends ServiceProvider implements DeferrableProv
 
         // SEO blueprint 
         Blueprint::macro('seo', function() {
-            $this->json('seo')->default(json_encode([
+            $this->json('seo')->nullable()/*->default(json_encode([
                 'description' => null,
                 'keywords'  => null,
                 'robots'    => 'index,follow',
                 'title'     => null,
-            ]));
+            ]))*/;
         });
 
         Blueprint::macro('dropSeo', function() {
@@ -182,7 +182,7 @@ class BlueprintServiceProvider extends ServiceProvider implements DeferrableProv
 
         // Config blueprint 
         Blueprint::macro('config', function(string $default = '[]') {
-            $this->json('config')->default($default); 
+            $this->json('config')->nullable()/*->default($default)*/; 
         });
 
         Blueprint::macro('dropConfig', function() {
