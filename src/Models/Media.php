@@ -3,6 +3,7 @@
 namespace Armincms\Models;
 
 use Spatie\MediaLibrary\Models\Media as Model;
+use Illuminate\Support\Facades\Storage;
 
 
 /**
@@ -18,13 +19,10 @@ class Media extends Model
         parent::boot();
 
         static::saved(function($model) {
-        	$dir = dirname($model->getPath());
+        	$file = dirname($model->getPath()) . '/index.php';
+            $storage = Storage::disk($model->disk);
 
-        	if(! file_exists("{$dir}/index.php")) {
-                is_dir($dir) || mkdir($dir, 0777, true);
-
-        		file_put_contents("{$dir}/index.php", '<?php exit("Access is denied!");');
-        	}  
+            $storage->has($file) || Storage::put($file, '<?php exit("Access Denied");');
         });
     }
 }
