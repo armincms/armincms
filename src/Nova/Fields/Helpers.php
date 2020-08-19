@@ -20,7 +20,6 @@ use Armincms\Nova\Fields\Video;
 use Armincms\Nova\Fields\Images;
 use Armincms\Currency\Nova\Currency;
 use GeneaLabs\NovaGutenberg\Gutenberg;
-use Vyuldashev\NovaMoneyField\Money;
 use OwenMelbz\RadioField\RadioButton;
 use Armincms\Json\Json; 
 use Armincms\Tab\Tab;
