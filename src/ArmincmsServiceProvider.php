@@ -10,6 +10,7 @@ use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova as LaravelNova;
 use Armincms\Http\Middleware\Authorize;
+use Cviebrock\EloquentSluggable\SluggableObserver;  
 
 class ArmincmsServiceProvider extends ServiceProvider
 {
@@ -134,6 +135,12 @@ class ArmincmsServiceProvider extends ServiceProvider
                 ->extend(new Admin)
                 ->extend(new User);
         });
+
+        $this->app->extend(SluggableObserver::class, function($observer) {   
+            return class_exists(\Armincms\Fields\Targomaan::class) 
+                        ? new SluggableObserver(new SlugService, $this->app['events'])
+                        : $observer;
+        }); 
     }
 
     public function registerArmincmsStorages()
