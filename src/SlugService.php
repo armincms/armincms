@@ -11,7 +11,31 @@ use Illuminate\Support\{Collection, Str};
  * @package Cviebrock\EloquentSluggable\Services
  */
 class SlugService extends Service
-{ 
+{  
+    /**
+     * Determines whether the model needs slugging.
+     *
+     * @param string $attribute
+     * @param array $config
+     *
+     * @return bool
+     */
+    protected function needsSlugging(string $attribute, array $config): bool
+    {  
+        if (
+            $config['onUpdate'] === true ||
+            empty($this->model->getTranslation($attribute))
+        ) {
+            return true;
+        }
+
+        if ($this->model->isDirty($attribute)) {
+            return false;
+        }
+
+        return (!$this->model->exists);
+    }
+
     /**
      * Get all existing slugs that are similar to the given slug.
      *
