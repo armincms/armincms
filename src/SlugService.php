@@ -4,6 +4,7 @@ namespace Armincms;
 
 use Cviebrock\EloquentSluggable\Services\SlugService as Service; 
 use Illuminate\Support\{Collection, Str};
+use Armincms\Targomaan\Contracts\Serializable;
 
 /**
  * Class SlugService
@@ -21,10 +22,10 @@ class SlugService extends Service
      * @return bool
      */
     protected function needsSlugging(string $attribute, array $config): bool
-    {  
+    {   
         if (
             $config['onUpdate'] === true ||
-            empty($this->model->getTranslation($attribute))
+            empty($this->getAttributeValue($this->model, $attribute))
         ) {
             return true;
         }
@@ -34,6 +35,13 @@ class SlugService extends Service
         }
 
         return (!$this->model->exists);
+    }
+
+    public function getAttributeValue($model, $attribute)
+    {
+        return $model instanceof Serializable 
+                    ? $model->getTranslation($attribute) 
+                    : $model->getAttributeValue($attribute);
     }
 
     /**
@@ -64,7 +72,9 @@ class SlugService extends Service
 
         // get the list of all matching slugs
         $results = $query->select([
-                Str::before($attribute, $this->model::delimiter()), 
+                $this->model instanceof Serializable 
+                    ? Str::before($attribute, $this->model::delimiter())
+                    : $attribute, 
                 $this->model->getQualifiedKeyName()
             ])
             ->get()
