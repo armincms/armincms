@@ -49,6 +49,7 @@
         "armincms/bios": "~0.1",   
         "armincms/many-to-many": "~0.1", 
         "armincms/toolbar-action": "~0.1", 
+        "armincms/nova-targomaan": "~0.1",
         "zareismail/nova-policy": "~0.1"  
     },
     "autoload": {

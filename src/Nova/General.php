@@ -2,21 +2,29 @@
 
 namespace Armincms\Nova;
   
-use Illuminate\Http\Request;  
+use Illuminate\Http\Request;   
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Inspheric\Fields\Url;
-use Illuminate\Support\Str;
+use Armincms\Bios\Resource; 
+use Armincms\Fields\Targomaan;
 
-class General extends ConfigResource
-{  
+class General extends Resource
+{   
+    /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = null;
 
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'Armincms\\General'; 
+    public static $model = \Armincms\Models\General::class; 
 
     /**
      * Get the displayable label of the resource.
@@ -54,12 +62,11 @@ class General extends ConfigResource
                 ->nameLabel()
                 ->alwaysClickable(), 
 
-            $this->translatable([
+            new Targomaan([
                 Text::make(__("App Name"), "_app_name_")
                     ->fillUsing(function($request, $model, $attribute, $requestAttribute) {
                         $model->{$attribute} = $request->get($requestAttribute); 
                     })
-                    ->onlyOnForms()
                     ->withMeta([
                         'value' => config('app.name')
                     ]),
@@ -67,17 +74,25 @@ class General extends ConfigResource
                 Textarea::make(__("App Description"), "_app_description_")
                     ->fillUsing(function($request, $model, $attribute, $requestAttribute) {
                         $model->{$attribute} = $request->get($requestAttribute); 
-                    })
-                    ->onlyOnForms(), 
-            ]),
-
-            Text::make(__("App Name"), function() {
-                return static::option("_app_name_::". app()->getLocale());
-            }),
-
-            Textarea::make(__("App Description"), function() {
-                return static::option("_app_description_::". app()->getLocale());
-            }),
+                    }), 
+            ]), 
         ];
+    }
+
+    /**
+     * Return the location to redirect the user after update.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  \Laravel\Nova\Resource  $resource
+     * @return string
+     */
+    public static function redirectAfterUpdate(NovaRequest $request, $resource)
+    {
+        return tap(parent::redirectAfterUpdate($request, $resource), function() {
+            file_put_contents(
+                __DIR__.'/../../config/app.php', '<?php return ["url"=>"' .static::option('_main_doamin_').'"];'
+            );
+            \Artisan::call('config:cache');
+        });
     }
 }
