@@ -3,8 +3,9 @@
 namespace Armincms\Nova\Fields;
 
 
+use Illuminate\Support\Str; 
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Media as Field;
-use Illuminate\Support\Str;
  
 
 class Media extends Field
@@ -27,4 +28,9 @@ class Media extends Field
         //     return Str::slug($time).".{$extension}";
         // }); 
     } 
+ 
+    protected function handleMedia(NovaRequest $request, $model, $attribute, $data)
+    {
+        return parent::handleMedia($request, $model, Str::before($attribute, '::'), $data); 
+    }
 }
