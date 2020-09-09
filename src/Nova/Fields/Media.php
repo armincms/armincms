@@ -6,6 +6,7 @@ namespace Armincms\Nova\Fields;
 use Illuminate\Support\Str; 
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Media as Field;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
  
 
 class Media extends Field
@@ -32,5 +33,13 @@ class Media extends Field
     protected function handleMedia(NovaRequest $request, $model, $attribute, $data)
     {
         return parent::handleMedia($request, $model, Str::before($attribute, '::'), $data); 
+    }
+
+    /**
+     * @param HasMedia|HasMediaTrait $resource
+     */
+    protected function checkCollectionIsMultiple(HasMedia $resource, string $collectionName)
+    {
+        return parent::checkCollectionIsMultiple($resource, Str::before($collectionName, '::')); 
     }
 }

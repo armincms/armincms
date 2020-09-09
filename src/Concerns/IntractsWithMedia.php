@@ -2,14 +2,16 @@
 
 namespace Armincms\Concerns;
 
+use Illuminate\Support\{Collection, Str};
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
-use Illuminate\Support\Collection;
 use Spatie\Image\Manipulations;
 
 trait IntractsWithMedia
 { 
-	use HasMediaTrait;
+	use HasMediaTrait {
+        getMedia as spatieGetMedia;
+    }
 
 	// protected $medias = [
  //        'image' => [
@@ -93,5 +95,18 @@ trait IntractsWithMedia
 
             return schema_placeholder($conversion); 
         });
+    }
+
+    /**
+     * Get media collection by its collectionName.
+     *
+     * @param string $collectionName
+     * @param array|callable $filters
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getMedia(string $collectionName = 'default', $filters = []): Collection
+    {
+        return $this->spatieGetMedia(Str::before($collectionName, '::'), $filters);
     }
 }
