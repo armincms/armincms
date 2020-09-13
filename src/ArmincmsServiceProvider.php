@@ -46,6 +46,8 @@ class ArmincmsServiceProvider extends ServiceProvider
                     "nova-gutenberg-jquery", __DIR__.'/../resources/js/jquery-1.4.min.js'
                 );
             }); 
+
+            \Config::set('nova-policy.migrations', false);
         });     
     }
 
