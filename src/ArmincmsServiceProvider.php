@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova as LaravelNova;
+use Laravel\Nova\Fields\FieldCollection;
 use Armincms\Http\Middleware\Authorize;
 use Cviebrock\EloquentSluggable\SluggableObserver;  
 
@@ -33,6 +34,7 @@ class ArmincmsServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->loadJsonTranslationsFrom(__DIR__.'/../resources/lang');
         $this->mergeConfigurations();
+        $this->configureMacros();
 
         LaravelNova::serving([$this, 'servingNova']);
         \Gate::policy(\Core\User\Models\Admin::class, Policies\AdminPolicy::class);
@@ -110,6 +112,36 @@ class ArmincmsServiceProvider extends ServiceProvider
         }); 
    
         Config::set('laraberg.use_package_routes', false);  
+    }
+
+    public function configureMacros()
+    {
+        /**
+         * Filter fields for showing on detail.
+         *
+         * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+         * @param  mixed  $resource
+         * @return \Laravel\Nova\Fields\FieldCollection
+         */
+        FieldCollection::macro('filterForDetail', function($request, $resource) {
+            return $this->filter(function ($field) use ($resource, $request) {
+                return $field->isShownOnDetail($request, $resource);
+            })->values();
+        }); 
+
+        /**
+         * Filter fields for showing on detail.
+         *
+         * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+         * @param  mixed  $resource
+         * @return \Laravel\Nova\Fields\FieldCollection
+         */
+        FieldCollection::macro('filterForIndex', function($request, $resource) {
+            return $this->filter(function ($field) use ($resource, $request) {
+                return $field->isShownOnIndex($request, $resource);
+            })->values();
+        });  
+
     }
 
     /**
