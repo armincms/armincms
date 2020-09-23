@@ -1,18 +1,10 @@
 {
-	"Name": "نام",
-	"Abstract": "چکیده",
-	"Description": "شرخ",
-	"ID": "شناسه",
-	"Slug": "اسلاگ",
-	"Hits": "بازدید",
-	"Seo": "SEO",
-	"Image": "تصویر",
-	"User": "کاربر",
-	"Admin": "ادمین",
-	"Currency": "واحد  پولی",
-	"Conetnt": "مختوا",
-	"Key": "کلید",
-	"Value": "مقدار",
-	"General": "عمومی",
-	"Config": "پیکربندی" 
+	"Admin": "ادمین", 
+	"Admins": "ادمین ها", 
+	"User": "کاربر", 
+	"Users": "کاربرها", 
+	"Dashboard": "داشبورد",  
+	"Configurations": "پیکربندی", 
+	"Role": "نقش",
+	"Roles": "نقشها"
 }
