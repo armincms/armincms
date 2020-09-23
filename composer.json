@@ -71,10 +71,5 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "scripts": { 
-        "post-update-cmd": [
-            "@php artisan armincms:publish"
-        ]
-    }
+    "prefer-stable": true 
 }

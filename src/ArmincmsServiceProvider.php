@@ -35,6 +35,7 @@ class ArmincmsServiceProvider extends ServiceProvider
         $this->loadJsonTranslationsFrom(__DIR__.'/../resources/lang');
         $this->mergeConfigurations();
         $this->configureMacros();
+        $this->registerPublishing();
 
         LaravelNova::serving([$this, 'servingNova']);
         \Gate::policy(\Core\User\Models\Admin::class, Policies\AdminPolicy::class);
@@ -152,7 +153,8 @@ class ArmincmsServiceProvider extends ServiceProvider
     public function register()
     {  
         $this->commands([
-            Console\UploadLinkCommand::class
+            Console\UploadLinkCommand::class,
+            Console\PublishCommand::class,
         ]);  
 
         // should remove after migration to nova
@@ -187,5 +189,14 @@ class ArmincmsServiceProvider extends ServiceProvider
 
             Config::set("filesystems.disks.armin.{$name}", $public);  
         }); 
+    }
+
+    public function registerPublishing()
+    {
+        if($this->app->runningInConsole()) {  
+            $this->publishes([
+                __DIR__.'/../resources/views/nova' => resource_path('views/vendor/nova'),
+            ], 'armincms-views');
+        }
     }
 }
