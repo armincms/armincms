@@ -46,7 +46,7 @@ class BlueprintServiceProvider extends ServiceProvider implements DeferrableProv
         });
 
         // Price blueprint
-        Blueprint::macro('price', function($name = 'price', $total = 10, $places = 2) {
+        Blueprint::macro('price', function($name = 'price', $total = 12, $places = 2) {
             $this->double($name, $total, $places)->default(0.00); 
         });
 
@@ -56,7 +56,7 @@ class BlueprintServiceProvider extends ServiceProvider implements DeferrableProv
 
          // small price blueprint
         Blueprint::macro('smallPrice', function($name = 'price') {
-            $this->price($name, 8, 2); 
+            $this->price($name, 10, 2); 
         });
 
         Blueprint::macro('dropSmallPrice', function($name = 'price') {
@@ -65,7 +65,7 @@ class BlueprintServiceProvider extends ServiceProvider implements DeferrableProv
 
          // long price blueprint
         Blueprint::macro('longPrice', function($name = 'price') {
-            $this->price($name, 12, 2); 
+            $this->price($name, 14, 2); 
         });
 
         Blueprint::macro('dropLongPrice', function($name = 'price') {
