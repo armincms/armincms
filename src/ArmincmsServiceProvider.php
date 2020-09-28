@@ -3,15 +3,14 @@
 namespace Armincms;
 
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\{File, Route, Config}; 
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova as LaravelNova;
 use Laravel\Nova\Fields\FieldCollection;
-use Armincms\Http\Middleware\Authorize;
-use Cviebrock\EloquentSluggable\SluggableObserver;  
+use Cviebrock\EloquentSluggable\SluggableObserver;
+use Armincms\Http\Middleware\Authorize;  
+use Armincms\NovaTranslation\Nova\Translation;
 
 class ArmincmsServiceProvider extends ServiceProvider
 {
@@ -57,7 +56,7 @@ class ArmincmsServiceProvider extends ServiceProvider
     public function servingNova()
     {
         LaravelNova::resources([
-            Nova\Translation::class,
+            Translation::class,
             Nova\General::class,
             Nova\Admin::class,
             Nova\User::class,
