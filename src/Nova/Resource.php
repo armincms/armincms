@@ -6,11 +6,10 @@ use Laravel\Nova\Resource as NovaResource;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Inspheric\NovaDefaultable\HasDefaultableFields;   
 use Armincms\Localization\Concerns\PerformsTranslationsQueries; 
-use Illuminate\Support\Str;
 
 abstract class Resource extends NovaResource
 {
-    use HasDefaultableFields, PerformsTranslationsQueries, Fields\Helpers; 
+    use HasLabel, HasDefaultableFields, PerformsTranslationsQueries, Fields\Helpers; 
    
     /**
      * The columns that should be searched in the translation table.
@@ -24,37 +23,7 @@ abstract class Resource extends NovaResource
      *
      * @var string
      */
-    public static $group = 'ACL';
-    
-    /**
-     * Get the displayable label of the resource.
-     *
-     * @return string
-     */
-    public static function label()
-    {
-        return __(static::pluralLabel());
-    }
-
-    /**
-     * Get the displayable singular label of the resource.
-     *
-     * @return string
-     */
-    public static function singularLabel()
-    {
-        return __(Str::singular(static::pluralLabel()));
-    } 
-
-    /**
-     * Get the displayable singular label of the resource.
-     *
-     * @return string
-     */
-    public static function pluralLabel()
-    {
-        return Str::plural(Str::title(Str::snake(class_basename(get_called_class()), ' ')));
-    }  
+    public static $group = 'ACL'; 
 
     /**
      * Build an "index" query for the given resource.
