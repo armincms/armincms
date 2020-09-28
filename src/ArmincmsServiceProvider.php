@@ -57,6 +57,7 @@ class ArmincmsServiceProvider extends ServiceProvider
     public function servingNova()
     {
         LaravelNova::resources([
+            Nova\Translation::class,
             Nova\General::class,
             Nova\Admin::class,
             Nova\User::class,
