@@ -82,10 +82,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
             (new \Armincms\Bios\Bios)->canSee(function() {
                 return \Auth::guard('admin')->check();
-            }),
-            (new \Joedixon\NovaTranslation\NovaTranslation)->canSee(function() {
-                return \Auth::guard('admin')->check();
-            }), 
+            }) 
         ];
     }
 
