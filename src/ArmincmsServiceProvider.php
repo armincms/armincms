@@ -10,7 +10,6 @@ use Laravel\Nova\Nova as LaravelNova;
 use Laravel\Nova\Fields\FieldCollection;
 use Cviebrock\EloquentSluggable\SluggableObserver;
 use Armincms\Http\Middleware\Authorize;  
-use Armincms\NovaTranslation\Nova\Translation;
 
 class ArmincmsServiceProvider extends ServiceProvider
 {
@@ -56,7 +55,7 @@ class ArmincmsServiceProvider extends ServiceProvider
     public function servingNova()
     {
         LaravelNova::resources([
-            Translation::class,
+            Nova\Translation::class,
             Nova\General::class,
             Nova\Admin::class,
             Nova\User::class,
