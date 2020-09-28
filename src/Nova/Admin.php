@@ -83,6 +83,12 @@ class Admin extends Resource
                 BelongsToMany::make(__('Roles'), 'roles', Role::class)
                     ->fillUsing(function($pivots) {
                         return $pivots;
+                    })
+                    ->canSee(function($request) {
+                        if($request->user()->can('attach', Role::newModel())) { 
+                            return  ! $request->isUpdateOrUpdateAttachedRequest() || 
+                                    ! $request->user()->is($this->resource);
+                        }
                     }),
             ]),
         ];
@@ -130,5 +136,21 @@ class Admin extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+
+    /**
+     * Determine if the current user can view the given resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $ability
+     * @return bool
+     */
+    public function authorizedTo(Request $request, $ability)
+    { 
+        if($this->resource->isDeveloper() && ! $request->user()->is($this->resource)) {
+            return false;
+        }
+
+        return parent::authorizedTo($request, $ability);
     }
 }
