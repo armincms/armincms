@@ -39,7 +39,7 @@
         "bissolli/nova-phone-field" : "0.0.*",
         "superlatif/nova-tag-input": "^1.1",
         "anetwork/validation": "^2.1", 
-        "armincms/core" : "~1.0",
+        "armincms/core" : "~1.1",
         "armincms/json" : "~0.2",
         "armincms/nova-tab" : "0.*",  
         "armincms/localization": "~0.1",
