@@ -50,6 +50,7 @@
         "armincms/toolbar-action": "~0.1", 
         "armincms/nova-targomaan": "~0.1",
         "armincms/nova-translation": "~0.1",
+        "armincms/conversion": "~0.1",
         "zareismail/nova-policy": "~0.1" 
     },
     "autoload": {
