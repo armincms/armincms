@@ -4,8 +4,7 @@ namespace Armincms;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use Laravel\Nova\Nova;
-use Laravel\Nova\Cards\Help;
+use Laravel\Nova\Nova; 
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Laravel\Nova\Fields\{BelongsToMany, MorphToMany, FieldCollection};
@@ -58,8 +57,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function cards()
     {
-        return [
-            new Help,
+        return [ 
         ];
     }
 
