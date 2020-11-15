@@ -58,9 +58,11 @@ trait HasMediaTrait
 						->quality(100 - ($schema['compress'] ?? 0)) 
                         ->extractVideoFrameAtSecond(1);
 
-        if(isset($schema['extension'])) {
-            $conversion = $conversion->format($schema['extension']);
-        }  
+        if(isset($schema['extension'])) { 
+            $conversion = $conversion->format($schema['extension']); 
+        } else {
+            $conversion = $conversion->keepOriginalImageFormat();
+        } 
 
         if(isset($schema['background'])) {
             $conversion = $conversion->background($schema['background']);
