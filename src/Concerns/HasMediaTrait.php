@@ -53,13 +53,18 @@ trait HasMediaTrait
     {      
 		$conversion = $this
 						->addMediaConversion($name)
-						->format($schema['extension'] ?? Manipulations::FORMAT_JPG)
 						->width($schema['width'] ?? 0)
 						->height($schema['height'] ?? 0)
-						->quality(100 - ($schema['compress'] ?? 0))
-                        ->background($schema['background'] ?? 'fff')
+						->quality(100 - ($schema['compress'] ?? 0)) 
                         ->extractVideoFrameAtSecond(1);
- 
+
+        if(isset($schema['extension'])) {
+            $conversion = $conversion->format($schema['extension']);
+        }  
+
+        if(isset($schema['background'])) {
+            $conversion = $conversion->background($schema['background']);
+        }  
 
         $this
             ->parseManipulations($schema['manipulations'] ?? ['crop' => 'crop-center'])
