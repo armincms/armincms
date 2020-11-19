@@ -110,6 +110,7 @@ class ArmincmsServiceProvider extends ServiceProvider
         }); 
    
         Config::set('laraberg.use_package_routes', false);  
+        Config::set('app.path', config('general.path', config('app.path')));  
     }
     /**
      * Register any application services.

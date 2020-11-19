@@ -90,7 +90,7 @@ class General extends Resource
     {
         return tap(parent::redirectAfterUpdate($request, $resource), function() {
             file_put_contents(
-                __DIR__.'/../../config/app.php', '<?php return ["url"=>"' .static::option('_main_doamin_').'"];'
+                config_path('general.php'), '<?php return ["url"=>"' .static::option('_main_doamin_').'"];'
             );
             \Artisan::call('config:cache');
         });
