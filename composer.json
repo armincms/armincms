@@ -24,7 +24,7 @@
         "armincms/annisa": "~0.1", 
         "yajra/laravel-datatables-html": "^4.20",
         "genealabs/nova-gutenberg" : "^0.1",
-        "optimistdigital/nova-multiselect-field" : "^1.6",
+        "optimistdigital/nova-multiselect-field" : "1.10.2",
         "rimu/formatted-number" : "^0.2", 
         "inspheric/nova-defaultable" : "^1.2", 
         "ebess/advanced-nova-media-library" : "2.*",
