@@ -42,15 +42,14 @@
         "armincms/json" : "~0.2",
         "armincms/nova-tab" : "0.*",  
         "armincms/localization": "~0.1",
-        "armincms/nova-login": "~0.1", 
-        "armincms/option" : "~0.1",   
+        "armincms/nova-login": "~0.1",    
         "armincms/bios": "~0.1",   
-        "armincms/many-to-many": "~0.1", 
-        "armincms/toolbar-action": "~0.1", 
+        "armincms/many-to-many": "~0.1",   
         "armincms/nova-targomaan": "~0.1",
         "armincms/nova-translation": "~0.1",
         "armincms/conversion": "~0.1",
         "zareismail/nova-policy": "~0.1",
+        "ghalwash/merq-laravel-nova-theme-responsive": "^1.1",
         "emilianotisato/nova-tinymce": "^1.1" 
     },
     "autoload": {
