@@ -18,13 +18,13 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Panel;
 use Armincms\Nova\Fields\Video; 
 use Armincms\Nova\Fields\Images;
-use Armincms\Currency\Nova\Currency;
-use GeneaLabs\NovaGutenberg\Gutenberg;
+use Armincms\Currency\Nova\Currency; 
 use OwenMelbz\RadioField\RadioButton;
 use Armincms\Json\Json; 
 use Armincms\Tab\Tab;
 use Superlatif\NovaTagInput\Tags;
 use Armincms\RawData\Common;
+use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
  
 
 trait Helpers
@@ -285,7 +285,7 @@ trait Helpers
      */
     public function gutenbergField(string $name = "Description", string $attribute = 'description')
     { 
-        return Gutenberg::make(__($name), $attribute)
+        return NovaTinyMCE::make(__($name), $attribute)
                     ->nullable()
                     ->hideFromIndex();
     }

@@ -27,11 +27,21 @@ class PublishCommand extends Command
      */
     public function handle()
     {
+        $this->call('nova:publish', [ 
+            '--force' => $this->option('force'),
+        ]);
+
+        $this->call('vendor:publish', [ 
+            '--force' => $this->option('force'),
+            '--provider' => 'Emilianotisato\NovaTinyMCE\FieldServiceProvider',
+
+        ]);  
+
         $this->call('vendor:publish', [
             '--tag' => 'armincms-views',
             '--force' => $this->option('force'),
         ]);
 
-        $this->call('view:clear');
+        $this->call('optimize:clear'); 
     }
 }

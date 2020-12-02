@@ -23,7 +23,6 @@
         "yajra/laravel-datatables-fractal": "^1.5",
         "armincms/annisa": "~0.1", 
         "yajra/laravel-datatables-html": "^4.20",
-        "genealabs/nova-gutenberg" : "^0.1",
         "optimistdigital/nova-multiselect-field" : "1.10.2",
         "rimu/formatted-number" : "^0.2", 
         "inspheric/nova-defaultable" : "^1.2", 
@@ -51,7 +50,8 @@
         "armincms/nova-targomaan": "~0.1",
         "armincms/nova-translation": "~0.1",
         "armincms/conversion": "~0.1",
-        "zareismail/nova-policy": "~0.1" 
+        "zareismail/nova-policy": "~0.1",
+        "emilianotisato/nova-tinymce": "^1.1" 
     },
     "autoload": {
         "psr-4": {
