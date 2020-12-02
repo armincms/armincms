@@ -38,13 +38,7 @@ class ArmincmsServiceProvider extends ServiceProvider
 
         $this->app->booted(function () {
             // $this->routes();  
-            $this->registerArmincmsStorages(); 
-
-            LaravelNova::serving(function (ServingNova $event) {
-                LaravelNova::script(
-                    "nova-gutenberg-jquery", __DIR__.'/../resources/js/jquery-1.4.min.js'
-                );
-            }); 
+            $this->registerArmincmsStorages();  
 
             \Config::set('nova-policy.migrations', false);
         });     
@@ -109,6 +103,8 @@ class ArmincmsServiceProvider extends ServiceProvider
             ]); 
         }); 
    
+
+        Config::set('option.default', 'database');
         Config::set('laraberg.use_package_routes', false);  
         Config::set('app.url', config('general.url', config('app.url')));  
     }
@@ -122,14 +118,7 @@ class ArmincmsServiceProvider extends ServiceProvider
         $this->commands([
             Console\UploadLinkCommand::class,
             Console\PublishCommand::class,
-        ]);  
-
-        // should remove after migration to nova
-        $this->mergeConfigFrom(
-           base_path('vendor/armincms/option/config/option.php'), 'option'
-        );
-
-        \Config::set('option.default', 'database');
+        ]);   
 
         $this->app->register(\Core\Armin\ArminServiceProvider::class);
 

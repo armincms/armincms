@@ -38,6 +38,11 @@ class PublishCommand extends Command
         ]);  
 
         $this->call('vendor:publish', [
+            '--tag' => 'armincms.option',
+            '--force' => $this->option('force'),
+        ]); 
+
+        $this->call('vendor:publish', [
             '--tag' => 'armincms-views',
             '--force' => $this->option('force'),
         ]);
