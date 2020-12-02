@@ -20,6 +20,14 @@ class Admin extends Resource
     public static $model = 'Core\\User\\Models\\Admin';
 
     /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'ACL'; 
+
+
+    /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string

@@ -16,14 +16,7 @@ abstract class Resource extends NovaResource
      *
      * @var array
      */
-    public static $searchTranslations = [];
-
-    /**
-     * The logical group associated with the resource.
-     *
-     * @var string
-     */
-    public static $group = 'ACL'; 
+    public static $searchTranslations = []; 
 
     /**
      * Build an "index" query for the given resource.
