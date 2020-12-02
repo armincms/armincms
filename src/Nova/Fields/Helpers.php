@@ -285,6 +285,17 @@ trait Helpers
      */
     public function gutenbergField(string $name = "Description", string $attribute = 'description')
     { 
+        return call_user_func_array([$this, 'tiny'], func_get_args());
+    }
+
+
+    /**
+     * Add description text field.
+     *  
+     * @return \Illuminate\Http\Resources\MergeValue               
+     */
+    public function tiny(string $name = "Description", string $attribute = 'description')
+    { 
         return NovaTinyMCE::make(__($name), $attribute)
                     ->nullable()
                     ->hideFromIndex();
