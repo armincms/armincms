@@ -5,7 +5,7 @@ namespace Armincms\Nova\Fields;
 use Armincms\Localization\Fields\Translatable;  
 use Armincms\Nova\Admin;
 use Armincms\Nova\User; 
-use Laravel\Nova\Fields\{KeyValue, Heading, Text, Number, Boolean, Select, Textarea, MorphTo, BelongsTo}
+use Laravel\Nova\Fields\{KeyValue, Heading, Text, Number, Boolean, Select, Textarea, MorphTo, BelongsTo};
 use Laravel\Nova\Panel; 
 use Armincms\Currency\Nova\Currency; 
 use OwenMelbz\RadioField\RadioButton;
@@ -196,10 +196,8 @@ trait Helpers
      * @return \Illuminate\Http\Resources\MergeValue               
      */
     public function priceField(string $name="Price", string $attribute='price', string $currency="IRR")
-    {
-        return Money::make(__($name), $currency, $attribute)
-                ->default(0.00) 
-                ->storedInMinorUnits(); 
+    {  
+        return Money::make(__($name), $attribute)->currency($currency);  
     }
 
     /**
