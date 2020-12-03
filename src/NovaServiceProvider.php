@@ -79,7 +79,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-            (new \Armincms\Tools\ToolbarAction\ToolbarAction),
+            // (new \Armincms\Tools\ToolbarAction\ToolbarAction),
 
             (new \Armincms\Bios\Bios)->canSee(function() {
                 return \Auth::guard('admin')->check();
