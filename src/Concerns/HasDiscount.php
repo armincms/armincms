@@ -21,7 +21,9 @@ trait HasDiscount
      */
     public function discountPercent(float $amount)
     { 
-    	return  ($amount - $this->applyDiscount($amount)) / $amount * 100; 
+        if($amount === 0) return 100;
+
+    	return ($amount - $this->applyDiscount($amount)) / $amount * 100; 
     } 
 
     /**
