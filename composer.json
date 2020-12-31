@@ -49,7 +49,8 @@
         "armincms/conversion": "~0.1",
         "zareismail/nova-policy": "~0.1",
         "ghalwash/merq-laravel-nova-theme-responsive": "^1.1",
-        "emilianotisato/nova-tinymce": "^1.1" 
+        "emilianotisato/nova-tinymce": "^1.1", 
+        "torann/currency": "^1.0"
     },
     "autoload": {
         "psr-4": {
