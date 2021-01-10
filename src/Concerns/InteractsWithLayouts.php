@@ -43,7 +43,7 @@ trait InteractsWithLayouts
      */
     public function listableLayoutKey()
     {
-        return static::layoutGroupName().'.list';
+        return static::layoutGroupName().'.review';
     } 
 
     /**
