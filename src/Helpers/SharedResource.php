@@ -16,8 +16,10 @@ class SharedResource
      */
     public static function availableResources(Request $request, string $interface)
     {
-        return collect(Nova::availableResources($request))->filter(function($resource) use ($interface) {
-            return Common::instanceOf($resource::$model, $interface);
+        return collect(Nova::$resources)->filter(function($resource) use ($interface) {
+            return  Common::instanceOf($resource::$model, $interface) || 
+                    is_subclass_of($resource::$model, $interface) ||
+                    $resource::$model === $interface;
         })->values();
     }
 
