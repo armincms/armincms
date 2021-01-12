@@ -45,7 +45,7 @@
         "armincms/bios": "~0.1",   
         "armincms/many-to-many": "~0.1",   
         "armincms/nova-targomaan": "~0.1",
-        "armincms/nova-translation": "~0.1",
+        "armincms/nova-translation": "1.*",
         "armincms/conversion": "~0.1",
         "zareismail/nova-policy": "~0.1",
         "ghalwash/merq-laravel-nova-theme-responsive": "^1.1",
@@ -71,5 +71,6 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true 
+    "prefer-stable": true,
+    "version": "0.7"
 }
