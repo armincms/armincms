@@ -3,6 +3,7 @@
 namespace Armincms\Helpers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Laravel\Nova\Nova;
 
 class SharedResource
@@ -37,6 +38,7 @@ class SharedResource
                 'label' => $resource::label(), 
                 'key'   => $resource::uriKey(), 
                 'model' => $resource::$model, 
+                'relation' => Str::plural(Str::camel(class_basename($resource::$model))), 
             ];
         });
     }
