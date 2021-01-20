@@ -71,6 +71,5 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "version": "0.7"
+    "prefer-stable": true 
 }
