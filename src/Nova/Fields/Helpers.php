@@ -285,6 +285,21 @@ trait Helpers
     { 
         return NovaTinyMCE::make(__($name), $attribute)
                     ->nullable()
+                    ->options([
+                        'plugins' => 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+                        'toolbar' => 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
+                        'menubar' => 'file edit view insert format tools table help',
+                        'toolbar_sticky' => true,
+                        'quickbars_selection_toolbar' => 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+                        'noneditable_noneditable_class' => 'mceNonEditable',
+                        'toolbar_mode'  => 'sliding',
+                        'height' => 300,
+                        'image_caption' => true, 
+                        'contextmenu' => 'link image imagetools table',
+                        'a11y_advanced_options' => true, 
+                        'image_advtab' => true,
+                        'importcss_append' => true,
+                    ])
                     ->hideFromIndex();
     }
 
