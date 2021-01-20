@@ -8,7 +8,7 @@ use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Inspheric\Fields\Url;
 use Armincms\Bios\Resource; 
-use Armincms\Fields\Targomaan;
+use Superlatif\NovaTagInput\Tags;
 
 class General extends Resource
 {   
@@ -62,20 +62,26 @@ class General extends Resource
                 ->nameLabel()
                 ->alwaysClickable(), 
 
-            new Targomaan([
-                Text::make(__("App Name"), "_app_name_")
-                    ->fillUsing(function($request, $model, $attribute, $requestAttribute) {
-                        $model->{$attribute} = $request->get($requestAttribute); 
-                    })
-                    ->withMeta([
-                        'value' => config('app.name')
-                    ]),
+            Text::make(__("App Name"), "_app_name_")
+                ->fillUsing(function($request, $model, $attribute, $requestAttribute) {
+                    $model->{$attribute} = $request->get($requestAttribute); 
+                })
+                ->withMeta([
+                    'value' => config('app.name')
+                ]),
 
-                Textarea::make(__("App Description"), "_app_description_")
-                    ->fillUsing(function($request, $model, $attribute, $requestAttribute) {
-                        $model->{$attribute} = $request->get($requestAttribute); 
-                    }), 
-            ]), 
+            Textarea::make(__("App Description"), "_app_description_")
+                ->fillUsing(function($request, $model, $attribute, $requestAttribute) {
+                    $model->{$attribute} = $request->get($requestAttribute); 
+                }), 
+
+            Tags::make(__("App Tags"), "_app_tags_")
+                ->fillUsing(function($request, $model, $attribute, $requestAttribute) {
+                    $model->{$attribute} = collect(json_decode($request->get($requestAttribute), true))->pluck('text')->values()->implode(','); 
+                })
+                ->resolveUsing(function($value) {
+                    return array_filter(explode(',', $value)); 
+                }),  
         ];
     }
 
