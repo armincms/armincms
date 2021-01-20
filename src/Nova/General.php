@@ -62,13 +62,18 @@ class General extends Resource
                 ->nameLabel()
                 ->alwaysClickable(), 
 
-            Text::make(__("App Name"), "_app_name_")
+            Text::make(__("App Title"), "_app_name_")
                 ->fillUsing(function($request, $model, $attribute, $requestAttribute) {
                     $model->{$attribute} = $request->get($requestAttribute); 
                 })
                 ->withMeta([
                     'value' => config('app.name')
                 ]),
+
+            Text::make(__("Home Title"), "_app_title_")
+                ->fillUsing(function($request, $model, $attribute, $requestAttribute) {
+                    $model->{$attribute} = $request->get($requestAttribute); 
+                }),
 
             Textarea::make(__("App Description"), "_app_description_")
                 ->fillUsing(function($request, $model, $attribute, $requestAttribute) {
