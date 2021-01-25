@@ -35,6 +35,12 @@ class PublishCommand extends Command
             '--force' => $this->option('force'),
             '--provider' => 'Emilianotisato\NovaTinyMCE\FieldServiceProvider',
 
+        ]); 
+
+        $this->call('vendor:publish', [ 
+            '--force' => true,
+            '--provider' => 'Armincms\ArmincmsServiceProvider',
+
         ]);  
 
         $this->call('vendor:publish', [
