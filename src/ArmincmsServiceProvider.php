@@ -53,6 +53,10 @@ class ArmincmsServiceProvider extends ServiceProvider
             Nova\User::class,
             Nova\Role::class,
         ]);
+
+        LaravelNova::tools([
+            \Infinety\Filemanager\FilemanagerTool::make(),
+        ]);
     }
 
     /**
@@ -145,6 +149,14 @@ class ArmincmsServiceProvider extends ServiceProvider
 
             Config::set("filesystems.disks.armin.{$name}", $public);  
         }); 
+
+        Config::set("filesystems.disks.upload", array_merge((array) config("filesystems.disks.public"), [
+            'root' => storage_path("app/upload"),
+            'url' => url("/upload"),
+            'visibility' => 'public',
+        ])); 
+
+        Config::set("filemanager.disk", 'upload');  
     }
 
     public function registerPublishing()

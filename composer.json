@@ -50,6 +50,7 @@
         "zareismail/nova-policy": "~0.1",
         "ghalwash/merq-laravel-nova-theme-responsive": "^1.1",
         "emilianotisato/nova-tinymce": "^1.1", 
+        "infinety-es/nova-filemanager": "^2.8",
         "torann/currency": "^1.0"
     },
     "autoload": {
@@ -71,5 +72,5 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true 
+    "prefer-stable": true
 }
