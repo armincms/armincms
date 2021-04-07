@@ -195,9 +195,13 @@ trait Helpers
      *  
      * @return \Illuminate\Http\Resources\MergeValue               
      */
-    public function priceField(string $name="Price", string $attribute='price', string $currency="IRR")
+    public function priceField(string $name="Price", string $attribute='price', string $currency = null)
     {  
-        return Money::make(__($name), $attribute)->currency($currency);  
+        return tap(Money::make(__($name), $attribute), function($field) use ($currency) {
+            if (! is_null($currency)) {
+                $field->currency($currency);
+            }
+        });  
     }
 
     /**
