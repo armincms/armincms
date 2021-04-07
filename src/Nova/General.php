@@ -3,8 +3,7 @@
 namespace Armincms\Nova;
   
 use Illuminate\Http\Request;   
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\{Text, Textarea, Timezone, Select}; 
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Inspheric\Fields\Url;
 use Armincms\Bios\Resource; 
@@ -45,6 +44,19 @@ class General extends Resource
     public function fields(Request $request)
     {
         return [
+            Timezone::make(__('Application Timezone'), 'timezone')
+                ->required()
+                ->rules('required')
+                ->withMeta([
+                    'value' => static::option('timezone', config('app.timezone')),
+                ]),
+
+            Select::make(__('Default Currency'), 'default_currency')
+                ->options(collect(currency()->getActiveCurrencies())->pluck('symbol', 'code'))
+                ->withMeta([
+                    'value' => static::option('currency', 'IRR'),
+                ]),
+
             Url::make(__("Main Domain"), "_main_doamin_")
                 ->rules('url')
                 ->withMeta([
@@ -100,8 +112,16 @@ class General extends Resource
     public static function redirectAfterUpdate(NovaRequest $request, $resource)
     {
         return tap(parent::redirectAfterUpdate($request, $resource), function() {
+            ob_start();
+            var_export(array_filter([
+                'app.url' => static::option('_main_doamin_'),
+                'app.timezone' => static::option('timezone'),
+                'nova.currency' => static::option('default_currency', 'IRR'),
+            ]));
+            $options = ob_get_clean();
+
             file_put_contents(
-                config_path('general.php'), '<?php return ["url"=>"' .static::option('_main_doamin_').'"];'
+                config_path('general.php'), '<?php return '.$options.';'
             );
             \Artisan::call('config:cache');
         });
