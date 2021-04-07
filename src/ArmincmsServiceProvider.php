@@ -85,6 +85,10 @@ class ArmincmsServiceProvider extends ServiceProvider
             ));
         }); 
 
+        Collection::make(config('general'))->each(function($value, $key) {
+            $this->app['config']->set($key, $value);
+        });
+
 
         collect([
             'user' => \Core\User\Models\User::class, 
