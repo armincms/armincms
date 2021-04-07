@@ -114,10 +114,10 @@ class General extends Resource
         return tap(parent::redirectAfterUpdate($request, $resource), function() {
             ob_start();
             var_export(array_filter([
-                'app.name' => static::option('_app_name_', 'Armin CMS'),
                 'app.url' => static::option('_main_doamin_'),
                 'app.timezone' => static::option('timezone'),
                 'nova.currency' => static::option('default_currency', 'IRR'),
+                'nova.name' => 'Armin CMS',
             ]));
             $options = ob_get_clean();
 
