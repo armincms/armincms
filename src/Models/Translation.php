@@ -39,7 +39,7 @@ class Translation extends Model
      *
      * @return array
      */
-    public function sluggable()
+    public function sluggable(): array
     {
         if($sluggable = static::$sluggable) { 
             return [
