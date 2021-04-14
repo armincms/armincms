@@ -44,12 +44,13 @@ class General extends Resource
     public function fields(Request $request)
     {
         return [
-            Timezone::make(__('Application Timezone'), 'timezone')
-                ->required()
-                ->rules('required')
-                ->withMeta([
-                    'value' => static::option('timezone', config('app.timezone')),
-                ]),
+            // Timezone::make(__('Application Timezone'), 'timezone')
+            //     ->required()
+            //     ->rules('required')
+            //     ->withMeta([
+            //         'value' => static::option('timezone', config('app.timezone')),
+            //     ]),
+            // Disabled because of storing local time
 
             Select::make(__('Default Currency'), 'default_currency')
                 ->options(collect(currency()->getActiveCurrencies())->pluck('symbol', 'code'))
@@ -115,7 +116,7 @@ class General extends Resource
             ob_start();
             var_export(array_filter([
                 'app.url' => static::option('_main_doamin_'),
-                'app.timezone' => static::option('timezone'),
+                // 'app.timezone' => static::option('timezone'), Disabled because of storing local time
                 'nova.currency' => static::option('default_currency', 'IRR'),
                 'nova.name' => 'Armin CMS',
             ]));
