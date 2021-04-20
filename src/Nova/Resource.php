@@ -4,12 +4,11 @@ namespace Armincms\Nova;
 
 use Laravel\Nova\Resource as NovaResource;  
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Inspheric\NovaDefaultable\HasDefaultableFields;   
-use Armincms\Localization\Concerns\PerformsTranslationsQueries; 
+use Inspheric\NovaDefaultable\HasDefaultableFields;     
 
 abstract class Resource extends NovaResource
 {
-    use HasLabel, HasDefaultableFields, PerformsTranslationsQueries, Fields\Helpers; 
+    use HasLabel, HasDefaultableFields, Queries\PerformsTranslationsQueries, Fields\Helpers; 
    
     /**
      * The columns that should be searched in the translation table.
