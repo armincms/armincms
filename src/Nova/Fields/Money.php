@@ -31,7 +31,7 @@ class Money extends Currency
      */
     public function formatMoney($value, $currency = null, $locale = null)
     { 
-    	return currency_format($value, $this->currency);
+    	return currency_format(floatval($value ?? 0.0), $this->currency);
     } 
 
     /**
