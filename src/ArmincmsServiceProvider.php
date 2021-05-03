@@ -115,6 +115,13 @@ class ArmincmsServiceProvider extends ServiceProvider
         Config::set('option.default', 'database');
         Config::set('laraberg.use_package_routes', false);  
         Config::set('app.url', config('general.url', config('app.url')));  
+
+        $this->app->booted(function() { 
+            // this is necessary to add for the meida library url generator
+            // if the system locale did not set, the php pathinfo() work incorrect
+            // referr here for see example: https://stackoverflow.com/questions/4451664/make-php-pathinfo-return-the-correct-filename-if-the-filename-is-utf-8
+            setlocale(LC_ALL, 'en_US');
+        });  
     }
     /**
      * Register any application services.
