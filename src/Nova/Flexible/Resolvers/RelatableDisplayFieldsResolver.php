@@ -36,7 +36,7 @@ class RelatableDisplayFieldsResolver implements ResolverInterface
      */
     public function set($model, $attribute, $groups)
     {
-        $value = $groups->filter()->mapWithKeys(function($group) {
+        $value = $groups->mapWithKeys(function($group) {
             $attributes = collect($group->getAttributes())->map(function($value) {
                 if(is_string($value) && $array = json_decode($value, true)) {
                     return $array;
