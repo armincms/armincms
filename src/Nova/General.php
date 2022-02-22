@@ -52,7 +52,7 @@ class General extends Resource
             //     ]),
             // Disabled because of storing local time
 
-            Select::make(__('Default Currency'), 'default_currency')
+            Select::make(__('Default Currency'), 'currency')
                 ->options(collect(currency()->getActiveCurrencies())->pluck('symbol', 'code'))
                 ->withMeta([
                     'value' => static::option('currency', 'IRR'),
