@@ -2,7 +2,7 @@
 
 namespace Armincms\Nova;
 
-use Illuminate\Http\Request; 
+use Illuminate\Http\Request;
 use Laravel\Nova\Panel;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
@@ -24,7 +24,7 @@ class Admin extends Resource
      *
      * @var string
      */
-    public static $group = 'ACL'; 
+    public static $group = 'ACL';
 
 
     /**
@@ -52,7 +52,7 @@ class Admin extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(), 
+            ID::make()->sortable(),
 
             Text::make(__('Username'), 'username')
                 ->sortable()
@@ -87,14 +87,18 @@ class Admin extends Resource
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
 
+            new Panel(__('Profile'), collect($this->meta)->map(function($value, $key) {
+            	return Text::make(__($key), function() use ($value) {return $value;})->onlyOnDetail();
+            })),
+
             new Panel(__('Permissions'), [
                 BelongsToMany::make(__('Roles'), 'roles', Role::class)
                     ->fillUsing(function($pivots) {
                         return $pivots;
                     })
                     ->canSee(function($request) {
-                        if($request->user()->can('attach', Role::newModel())) { 
-                            return  ! $request->isUpdateOrUpdateAttachedRequest() || 
+                        if($request->user()->can('attach', Role::newModel())) {
+                            return  ! $request->isUpdateOrUpdateAttachedRequest() ||
                                     ! $request->user()->is($this->resource);
                         }
                     }),
@@ -154,7 +158,7 @@ class Admin extends Resource
      * @return bool
      */
     public function authorizedTo(Request $request, $ability)
-    { 
+    {
         if($this->resource->isDeveloper() && ! $request->user()->is($this->resource)) {
             return false;
         }
